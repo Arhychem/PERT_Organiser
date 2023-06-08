@@ -13,16 +13,18 @@ const selector = (state) => ({
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
   addNode: state.addNode,
-  nodeTypes: state.nodeTypes
+  nodeTypes: state.nodeTypes,
+  edgeTypes: state.edgeTypes
 })
 export default function App() {
 
-  const {nodes, edges, onNodesChange, onEdgesChange, onConnect, addNode, nodeTypes} = useStore(selector, shallow)
+  const {nodes, edges, onNodesChange, onEdgesChange, onConnect, addNode, nodeTypes, edgeTypes} = useStore(selector, shallow)
 
   return (
     <div style={{ width: '100vw', height: '100vh', backgroundColor: 'white' }}>
       <ReactFlow
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}

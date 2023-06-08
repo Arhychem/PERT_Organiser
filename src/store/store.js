@@ -4,9 +4,10 @@ import {
     applyEdgeChanges,
     applyNodeChanges
 } from 'reactflow';
-import initialNodes from './nodes';
-import initialEdges from './edges';
-import TextUpdaterNode from '../components/TextUpdaterNode';
+import initialNodes from './initialNodes';
+import initialEdges from './initialEdges';
+import StepNode from '../components/graph/StepNode';
+import TaskEdge from '../components/graph/TaskEdge';
 
 
 const useStore = create((set, get) => {
@@ -14,7 +15,8 @@ const useStore = create((set, get) => {
         nodeId: 0,
         nodes: initialNodes,
         edges: initialEdges,
-        nodeTypes: { textUpdater: TextUpdaterNode },
+        nodeTypes: {stepNode: StepNode },
+        edgeTypes: {taskEdge: TaskEdge},
         onNodesChange: (changes) => {
             set({
                 nodes: applyNodeChanges(changes, get().nodes)
@@ -27,7 +29,7 @@ const useStore = create((set, get) => {
         },
         onConnect: (connection) => {
             set({
-                edges: addEdge(connection, get().edges)
+                edges: addEdge({...connection, type: 'taskEdge'}, get().edges)
             })
         },
         addNode: () => {
@@ -36,7 +38,7 @@ const useStore = create((set, get) => {
                 id: `${id}`,
                 data: { label: 'New node' + id, nb: 20 },
                 position: { x: 250, y: 25 },
-                type: 'textUpdater'
+                type: 'stepNode'
             }
             set({
                 nodes: [...get().nodes, newNode]
