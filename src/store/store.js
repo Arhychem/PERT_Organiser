@@ -7,6 +7,8 @@ import {
 import initialNodes from './initialNodes';
 import initialEdges from './initialEdges';
 import StepNode from '../components/graph/StepNode';
+import StartNode from '../components/graph/StartNode';
+import EndNode from '../components/graph/EndNode';
 import TaskEdge from '../components/graph/TaskEdge';
 
 
@@ -15,8 +17,8 @@ const useStore = create((set, get) => {
         nodeId: 0,
         nodes: initialNodes,
         edges: initialEdges,
-        nodeTypes: {stepNode: StepNode },
-        edgeTypes: {taskEdge: TaskEdge},
+        nodeTypes: { stepNode: StepNode, startNode: StartNode, endNode: EndNode },
+        edgeTypes: { taskEdge: TaskEdge },
         onNodesChange: (changes) => {
             set({
                 nodes: applyNodeChanges(changes, get().nodes)
@@ -29,7 +31,7 @@ const useStore = create((set, get) => {
         },
         onConnect: (connection) => {
             set({
-                edges: addEdge({...connection, type: 'taskEdge'}, get().edges)
+                edges: addEdge({ ...connection, type: 'taskEdge' }, get().edges)
             })
         },
         addNode: () => {
@@ -47,8 +49,8 @@ const useStore = create((set, get) => {
         updateNodeColor: (nodeId, color) => {
             set({
                 nodes: get().nodes.map((node) => {
-                    if(node.id == nodeId) {
-                        node.data = {...node.data, color}
+                    if (node.id == nodeId) {
+                        node.data = { ...node.data, color }
                     }
                     return node;
                 })
