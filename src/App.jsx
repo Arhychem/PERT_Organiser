@@ -1,9 +1,11 @@
 import React from 'react';
-import ReactFlow, {MiniMap, Controls, Background, Panel } from 'reactflow';
-
+import ReactFlow, { MiniMap, Controls, Background, Panel } from 'reactflow';
 import 'reactflow/dist/style.css';
-import {shallow} from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 import useStore from './store/store';
+import styled from '@emotion/styled';
+import TasksPanel from './components/ui/TasksPanel';
+import { ChakraProvider } from '@chakra-ui/react'
 
 
 const selector = (state) => ({
@@ -18,27 +20,43 @@ const selector = (state) => ({
 })
 export default function App() {
 
-  const {nodes, edges, onNodesChange, onEdgesChange, onConnect, addNode, nodeTypes, edgeTypes} = useStore(selector, shallow)
+  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, addNode, nodeTypes, edgeTypes } = useStore(selector, shallow)
 
   return (
-    <div style={{ width: '100vw', height: '100vh', backgroundColor: 'white' }}>
-      <ReactFlow
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        proOptions={{hideAttribution: true}}
-      >
-        <MiniMap />
-        <Controls />
-        <Background variant='dots' />
-        <Panel position='top-center'>
-          <button onClick={addNode}>Add node</button>
-        </Panel>
-      </ReactFlow>
-    </div>
+    <ChakraProvider>
+      <AppWrapper>
+        <div className='visualizer'>
+          <ReactFlow
+            nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            proOptions={{ hideAttribution: true }}
+          >
+            <MiniMap />
+            <Controls />
+            <Background variant='dots' gap={40} />
+            <Panel position='top-center'>
+              <button onClick={addNode}>Add node</button>
+            </Panel>
+          </ReactFlow>
+        </div>
+        <TasksPanel className="tasksPanel" />
+      </AppWrapper>
+    </ChakraProvider>
   );
 }
+
+const AppWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  .visualizer{
+    width: 100%;
+    height: 100%;
+    background-color: #F8FAFB;
+  }
+`;

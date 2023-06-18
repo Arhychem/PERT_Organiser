@@ -7,9 +7,11 @@ export default {
         purple: '#CF10DF',
         blue1: '#1C73C4',
         green: '#52FF43',
-        greenHover: '#14C904'
+        greenHover: '#14C904',
+        gray3: '#828282',
+        gray4: '#BDBDBD',
     },
     sizes: {
-        
+        taskPanelPx: '20px'
     }
 }
