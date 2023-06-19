@@ -2,13 +2,13 @@ import React from 'react';
 import { Handle, Position } from 'reactflow';
 import { styled } from 'styled-components';
 import styles from '../../styles/variables';
-import {BsStarFill} from 'react-icons/bs'
+import { BsStarFill } from 'react-icons/bs'
 
 export default function StartNode({ id, data }) {
     return (
         <NodeWrapper>
             <div className="title">
-                <BsStarFill/>
+                <BsStarFill />
                 <strong>début</strong>
             </div>
             <div className="plusTot">
@@ -46,6 +46,8 @@ const NodeWrapper = styled.div`
         position: absolute;
         top: 5px;
         left: 18px;
+        display: flex;
+        align-items: center;
         strong{
             margin-left: 5px;
         }

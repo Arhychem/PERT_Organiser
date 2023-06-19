@@ -3,9 +3,11 @@ import styles from "../../styles/variables";
 import TaskItem from "./TaskItem";
 import { Button } from "@chakra-ui/react";
 import { BsPlusSquare } from "react-icons/bs"
+import AddTaskModal from "./AddTaskModal";
+import { useState } from "react";
 
 export default function TasksPanel() {
-
+    const [isAddTaskModalOpen, setIsTaskModalOpen] = useState(false);
     return (
         <PanelWrapper>
             <div className="title">
@@ -37,10 +39,12 @@ export default function TasksPanel() {
                     variant='outline' 
                     width={'100%'} 
                     style={{marginTop: '30px'}}
-                    leftIcon={<BsPlusSquare style={{fontSize: '20px'}} />
-                    }>
+                    leftIcon={<BsPlusSquare style={{fontSize: '20px'}} />}
+                    onClick={()=>{setIsTaskModalOpen(true)}}
+                    >
                     NOUVELLE TACHE
                 </Button>
+                <AddTaskModal isOpen={isAddTaskModalOpen} setIsOpen={setIsTaskModalOpen}/>
             </div>
         </PanelWrapper>
     );
