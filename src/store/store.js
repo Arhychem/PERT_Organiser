@@ -10,6 +10,7 @@ import StepNode from '../components/graph/StepNode';
 import StartNode from '../components/graph/StartNode';
 import EndNode from '../components/graph/EndNode';
 import TaskEdge from '../components/graph/TaskEdge';
+import CriticalEdge from '../components/graph/CriticalEdge';
 
 
 const useStore = create((set, get) => {
@@ -18,7 +19,7 @@ const useStore = create((set, get) => {
         nodes: initialNodes,
         edges: initialEdges,
         nodeTypes: { stepNode: StepNode, startNode: StartNode, endNode: EndNode },
-        edgeTypes: { taskEdge: TaskEdge },
+        edgeTypes: { taskEdge: TaskEdge, criticalEdge: CriticalEdge },
         onNodesChange: (changes) => {
             set({
                 nodes: applyNodeChanges(changes, get().nodes)

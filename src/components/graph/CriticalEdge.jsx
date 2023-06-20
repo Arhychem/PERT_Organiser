@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import styles from "../../styles/variables"
 import { BaseEdge, EdgeLabelRenderer, getBezierPath, MarkerType } from 'reactflow';
 
-export default function TaskEdge({
+export default function CriticalEdge({
     id,
     sourceX,
     sourceY,
@@ -14,12 +14,11 @@ export default function TaskEdge({
     markerEnd,
     data
 }) {
-
     const [edgePath, labelX, labelY] = getBezierPath({
         sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition
     });
 
-    const {taskName, duration, isFictif} = data;
+    const { taskName, duration, isFictif } = data;
 
     return (
         <>
@@ -29,7 +28,7 @@ export default function TaskEdge({
                 style={{
                     ...style,
                     strokeWidth: 2,
-                    stroke: isFictif ? styles.colors.nodeStroke : '#1C73C4',
+                    stroke: styles.colors.greenHover,
                 }} />
             <EdgeLabelRenderer>
                 <EdgeLabelWrapper
@@ -39,9 +38,9 @@ export default function TaskEdge({
                     }}
                 >
                     <div className="taskDetails" style={{
-                        backgroundColor: isFictif ? 'white' : styles.colors.blue1,
+                        backgroundColor: isFictif ? 'white' : styles.colors.greenHover,
                         color: isFictif ? styles.colors.bodyColor : 'white',
-                        border: isFictif ? `2px solid ${styles.colors.nodeStroke}` : 'none',
+                        border: isFictif ? `2px solid ${styles.colors.greenHover}` : 'none',
                         justifyContent: isFictif ? 'center' : 'space-between'
                     }}>
                         {!isFictif && <span className="taskName">{taskName}</span>}
@@ -51,7 +50,6 @@ export default function TaskEdge({
             </EdgeLabelRenderer>
         </>
     );
-
 }
 
 const EdgeLabelWrapper = styled.div`

@@ -13,7 +13,7 @@ export default function EndNode({ id, data }) {
             </div>
             <Handle type='target' className='handle target' position={Position.Left} />
             <div className="plusTot">
-                <strong>78</strong>
+                <strong>{data.earliestDate || 0}</strong>
             </div>
         </NodeWrapper>
     )

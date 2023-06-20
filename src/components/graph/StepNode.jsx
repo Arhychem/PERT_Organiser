@@ -4,18 +4,35 @@ import { styled } from 'styled-components';
 import styles from '../../styles/variables';
 
 export default function StepNode({ id, data }) {
-    return (
-        <NodeWrapper>
-            <Handle type='target' className='handle target' position={Position.Left} />
-            <div className="plusTot">
-                <strong>78</strong>
-            </div>
-            <div className="plusTard">
-                <strong>34</strong>
-                <Handle type='source' className='handle source' position={Position.Right}/>
-            </div>
-        </NodeWrapper>
-    )
+  const { earliestDate, latestDates } = data;
+  return (
+    <NodeWrapper>
+      <Handle type='target' className='handle target' position={Position.Left} />
+      <div className="plusTot">
+        <strong>{earliestDate || 0}</strong>
+      </div>
+      <div className="plusTardList">
+        {
+          latestDates.map((date, i) => {
+            return (
+              <div className="plusTard" key={i}>
+                <strong>{date}</strong>
+                <Handle 
+                  type='source' 
+                  className='handle source' 
+                  position={Position.Right} 
+                  id={`${id}-${i}`} 
+                  style={{
+                    // top: 
+                  }}
+                  />
+              </div>
+            )
+          })
+        }
+      </div>
+    </NodeWrapper>
+  )
 }
 
 const NodeWrapper = styled.div`
@@ -56,5 +73,15 @@ const NodeWrapper = styled.div`
         strong{
             font-size: 20px;
         }
+    }
+    .plusTardList{
+      /* border: 1px solid red; */
+      .plusTard{
+        position: relative;
+        text-align: right;
+        .handle{
+          right: -16px;
+        }
+      }
     }
 `;
