@@ -14,10 +14,27 @@ import CriticalEdge from '../components/graph/CriticalEdge';
 
 
 const useStore = create((set, get) => {
+    const initialTasks = initialEdges.map((edge, i) => {
+        return {
+            edgeId: edge.id,
+            name: edge.id,
+            duration: edge.data.duration,
+            predecessor: ['A', 'B'],
+        }
+    })
     return {
         nodeId: 0,
         nodes: initialNodes,
         edges: initialEdges,
+        tasks: [
+            // {
+            //     edgeId: 'Deb',
+            //     name: 'Deb',
+            //     duration: 0,
+            //     predecessor: [],
+            // },
+            ...initialTasks
+        ],
         nodeTypes: { stepNode: StepNode, startNode: StartNode, endNode: EndNode },
         edgeTypes: { taskEdge: TaskEdge, criticalEdge: CriticalEdge },
         onNodesChange: (changes) => {
@@ -32,7 +49,16 @@ const useStore = create((set, get) => {
         },
         onConnect: (connection) => {
             set({
-                edges: addEdge({ ...connection, type: 'taskEdge' }, get().edges)
+                edges: addEdge(
+                    {
+                        ...connection,
+                        type: 'taskEdge',
+                        data: {
+                            taskName: 'A',
+                            duration: 24,
+                            isFictif: false
+                        }
+                    }, get().edges)
             })
         },
         addNode: () => {
@@ -47,16 +73,17 @@ const useStore = create((set, get) => {
                 nodes: [...get().nodes, newNode]
             })
         },
-        updateNodeColor: (nodeId, color) => {
+        addTask: (newTask) => {
             set({
-                nodes: get().nodes.map((node) => {
-                    if (node.id == nodeId) {
-                        node.data = { ...node.data, color }
-                    }
-                    return node;
-                })
+                tasks: [...get().tasks, newTask]
+            });
+            
+        },
+        removeTask: (taskName) => {
+            set({
+                tasks: get().tasks.filter(t => t.name != taskName)
             })
-        }
+        },
     }
 })
 

@@ -3,7 +3,7 @@ import styles from "../../styles/variables";
 
 export default function PreviousTaskName({taskName}) {
     return (
-        <PreviousTaskNameWrapper>
+        <PreviousTaskNameWrapper className={taskName == 'Deb' ? "deb" : ""}>
             {taskName}
         </PreviousTaskNameWrapper>
     );
@@ -14,10 +14,16 @@ const PreviousTaskNameWrapper = styled.span`
     color: white;
     font-weight: bold;
     font-size: 14px;
-    width: 22px;
+    min-width: 22px;
+    width: max-content;
+    padding-left: 3px;
+    padding-right: 3px;
     height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
+    &.deb{
+        background-color: ${styles.colors.orangeHover};
+    }
 `;

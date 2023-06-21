@@ -1,8 +1,9 @@
 import { BaseEdge, EdgeLabelRenderer, getBezierPath, MarkerType } from 'reactflow';
 export default [
     {
-        id: 'e1-2',
+        id: 'A',
         source: '1',
+        sourceHandle: '1-0',
         target: '2',
         type: 'taskEdge',
         data: {
@@ -18,8 +19,9 @@ export default [
         }
     },
     {
-        id: 'e2-3',
+        id: 'B',
         source: '2',
+        sourceHandle: '2-2',
         target: '3',
         label: "label",
         type: 'taskEdge',
@@ -30,8 +32,9 @@ export default [
         },
     },
     {
-        id: 'e3-end',
+        id: 'C',
         source: '3',
+        sourceHandle: '3-1',
         target: 'end',
         label: "label",
         type: 'criticalEdge',
@@ -39,7 +42,7 @@ export default [
         data: {
             taskName: 'B',
             duration: 9,
-            isFictif: true
+            isFictif: false
         },
     }
 ];

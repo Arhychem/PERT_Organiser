@@ -13,7 +13,10 @@ const TaskNameWrapper = styled.span`
     background-color: ${styles.colors.blue1};
     color: white;
     font-weight: bold;
-    width: 31px;
+    min-width: 31px;
+    width: max-content;
+    padding-left: 5px;
+    padding-right: 5px;
     height: 31px;
     display: flex;
     align-items: center;

@@ -71,6 +71,7 @@ const TaskItemWrapper = styled.div`
     .left{
         display: flex;
         align-items: center;
+        justify-content: left;
         .dragHandle{
             width: 20px;
             font-size: 17px;

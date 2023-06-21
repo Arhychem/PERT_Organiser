@@ -5,8 +5,17 @@ import { Button } from "@chakra-ui/react";
 import { BsPlusSquare } from "react-icons/bs"
 import AddTaskModal from "./AddTaskModal";
 import { useState } from "react";
+import { shallow } from "zustand/shallow";
+import useStore from "../../store/store";
+
+const selectore = (state) => ({
+    tasks: state.tasks
+});
 
 export default function TasksPanel() {
+    const { tasks } = useStore(selectore, shallow);
+    console.log(tasks);
+    // const tasks = [];
     const [isAddTaskModalOpen, setIsTaskModalOpen] = useState(false);
     return (
         <PanelWrapper>
@@ -21,30 +30,31 @@ export default function TasksPanel() {
                     <strong style={{ marginLeft: '50px' }}>Marge</strong>
                 </div>
                 <div className="tasks">
-                    <TaskItem
-                        taskName="A"
-                        duration={12}
-                        previousTasks={['A', 'B']}
-                        marge={2}
-                    />
-                    <TaskItem
-                        taskName="B"
-                        duration={12}
-                        previousTasks={['A']}
-                        marge={1}
-                    />
+                    {
+                        tasks.map((task, i) => {
+                            return (
+                                <TaskItem
+                                    taskName={task.name}
+                                    duration={task.duration}
+                                    previousTasks={task.predecessor}
+                                    marge={2}
+                                    key={i}
+                                />
+                            )
+                        })
+                    }
                 </div>
-                <Button 
-                    colorScheme='blue' 
-                    variant='outline' 
-                    width={'100%'} 
-                    style={{marginTop: '30px'}}
-                    leftIcon={<BsPlusSquare style={{fontSize: '20px'}} />}
-                    onClick={()=>{setIsTaskModalOpen(true)}}
-                    >
+                <Button
+                    colorScheme='blue'
+                    variant='outline'
+                    width={'100%'}
+                    style={{ marginTop: '30px' }}
+                    leftIcon={<BsPlusSquare style={{ fontSize: '20px' }} />}
+                    onClick={() => { setIsTaskModalOpen(true) }}
+                >
                     NOUVELLE TACHE
                 </Button>
-                <AddTaskModal isOpen={isAddTaskModalOpen} setIsOpen={setIsTaskModalOpen}/>
+                <AddTaskModal isOpen={isAddTaskModalOpen} setIsOpen={setIsTaskModalOpen} />
             </div>
         </PanelWrapper>
     );
