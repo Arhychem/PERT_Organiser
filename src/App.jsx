@@ -14,13 +14,12 @@ const selector = (state) => ({
   onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
-  addNode: state.addNode,
   nodeTypes: state.nodeTypes,
   edgeTypes: state.edgeTypes
 })
 export default function App() {
 
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, addNode, nodeTypes, edgeTypes } = useStore(selector, shallow)
+  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, nodeTypes, edgeTypes } = useStore(selector, shallow)
 
   return (
     <ChakraProvider>
@@ -40,7 +39,6 @@ export default function App() {
             <Controls />
             <Background variant='dots' gap={40} />
             <Panel position='top-center'>
-              <button onClick={addNode}>Add node</button>
             </Panel>
           </ReactFlow>
         </div>
