@@ -80,8 +80,18 @@ const useStore = create((set, get) => {
             
         },
         removeTask: (taskName) => {
+            //remove the task
+            let filteredTasks = get().tasks.filter(t => t.name != taskName);
+            //remove the task from the predecessors list if the list contains the removed task
+            filteredTasks.forEach(task => {
+                task.predecessors = task.predecessors.filter(t => t != taskName);
+                if(task.predecessors.length == 0) {
+                    task.predecessors.push('Deb')
+                }
+            });
+
             set({
-                tasks: get().tasks.filter(t => t.name != taskName)
+                tasks: filteredTasks
             })
         },
         calculateGraph:  () => {
@@ -107,7 +117,11 @@ const useStore = create((set, get) => {
                             type: node.type
                         }
                     })
-                })
+                });
+                //remove not connected nodes
+                const edges = get().edges;
+                const nodes = get().nodes;
+
             }).catch(err => {
                 console.log(err);
             });

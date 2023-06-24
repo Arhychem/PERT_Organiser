@@ -14,9 +14,26 @@ import {
     MenuOptionGroup,
     MenuDivider,
     Button
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
+import useStore from "../../store/store";
+import { useToast } from '@chakra-ui/react';
+
+const selector = (state) => ({
+    tasks: state.tasks,
+    removeTask: state.removeTask
+})
 
 export default function TaskItem({ taskName, duration, previousTasks }) {
+    const {tasks, removeTask} = useStore(selector);
+    const toast = useToast();
+    const handleTaskDelete = () => {
+        if(confirm("Voulez vraiment supprimer cette tache ?")){
+            removeTask(taskName);
+            toast({
+                title: 'Tache supprimée !'
+            })
+        }
+    }
     return (
         <TaskItemWrapper>
             <div className="left">
@@ -43,7 +60,7 @@ export default function TaskItem({ taskName, duration, previousTasks }) {
                 </MenuButton>
                 <MenuList className="menuList">
                     <MenuItem>Modifier</MenuItem>
-                    <MenuItem color={'red'}>Supprimer</MenuItem>
+                    <MenuItem color={'red'} onClick={handleTaskDelete}>Supprimer</MenuItem>
                 </MenuList>
             </Menu>
         </TaskItemWrapper>
