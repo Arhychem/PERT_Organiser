@@ -37,12 +37,18 @@ export default function AddTaskModal({ isOpen, setIsOpen }) {
   const [previousTasks, setPreviousTasks] = useState([]);
   const [selectValue, setSelectValue] = useState("");
   const { existingTasks, addTask, setIsTasksEdited, saveToLocalStorage } = useStore(selector);
-  const [tasks, setTasks] = useState([
-    {
-      edgeId: 'Deb',
-      name: 'Deb',
-    },
-    ...existingTasks]);
+  const [tasks, setTasks] = useState([{
+    edgeId: 'Deb',
+    name: 'Deb',
+  }]);
+  useEffect(() => {
+    setTasks([
+      {
+        edgeId: 'Deb',
+        name: 'Deb',
+      },
+      ...existingTasks])
+  }, [existingTasks]);
   const toast = useToast();
 
   const handleModalOnClose = () => {
@@ -98,12 +104,12 @@ export default function AddTaskModal({ isOpen, setIsOpen }) {
 
   const removePreviousTask = (taskToRemove) => {
     setPreviousTasks(previousTasks.filter(t => t != taskToRemove));
-    if(taskToRemove == 'Deb' || previousTasks.length == 0){
+    if (taskToRemove == 'Deb' || previousTasks.length == 0) {
       setTasks(old => [{ name: 'Deb' }, ...old]);
-    } else{
+    } else {
       setTasks(old => [...old, { name: taskToRemove }]);
     }
-    
+
   }
   return (
     <>
