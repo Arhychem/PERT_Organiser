@@ -13,15 +13,15 @@ export default function StepNode({ id, data }) {
       </div>
       <div className="plusTardList">
         {
-          latestDates.map((date, i) => {
+          Object.keys(latestDates).map((key, i) => {
             return (
               <div className="plusTard" key={i}>
-                <strong>{date}</strong>
+                <strong>{latestDates[key]}</strong>
                 <Handle 
                   type='source' 
                   className='handle source' 
                   position={Position.Right} 
-                  id={`${id}-${i}`} 
+                  id={`${key}`} 
                   style={{
                     // top: 
                   }}

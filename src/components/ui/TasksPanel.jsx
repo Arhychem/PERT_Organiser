@@ -7,27 +7,23 @@ import AddTaskModal from "./AddTaskModal";
 import { useState } from "react";
 import { shallow } from "zustand/shallow";
 import useStore from "../../store/store";
+import TaskPanelHeader from "./TaskPanelHeader";
 
-const selectore = (state) => ({
+const selector = (state) => ({
     tasks: state.tasks
 });
 
 export default function TasksPanel() {
-    const { tasks } = useStore(selectore, shallow);
-    console.log(tasks);
-    // const tasks = [];
+    const { tasks } = useStore(selector, shallow);
     const [isAddTaskModalOpen, setIsTaskModalOpen] = useState(false);
     return (
         <PanelWrapper>
-            <div className="title">
-                <h1>CPM</h1>
-            </div>
+            <TaskPanelHeader/>
             <div className="tasksSection">
                 <div className="header">
                     <strong>Tâche</strong>
-                    <strong style={{ marginLeft: '30px' }}>Durée</strong>
-                    <strong style={{ marginLeft: '30px' }}>Antécédant(s)</strong>
-                    <strong style={{ marginLeft: '50px' }}>Marge</strong>
+                    <strong style={{ marginLeft: '40px' }}>Durée</strong>
+                    <strong style={{ marginLeft: '50px' }}>Antécédant(s)</strong>
                 </div>
                 <div className="tasks">
                     {
@@ -36,8 +32,7 @@ export default function TasksPanel() {
                                 <TaskItem
                                     taskName={task.name}
                                     duration={task.duration}
-                                    previousTasks={task.predecessor}
-                                    marge={2}
+                                    previousTasks={task.predecessors}
                                     key={i}
                                 />
                             )
@@ -61,24 +56,11 @@ export default function TasksPanel() {
 }
 
 const PanelWrapper = styled.div`
-    width: 500px;
+    width: 450px;
     background-color: white;
     height: 100%;
     box-shadow: -2px 0px 19px rgba(0, 0, 0, 0.09);
     flex-shrink: 0;
-    .title{
-        border-bottom: 1px solid ${styles.colors.gray4};
-        padding-left: ${styles.sizes.taskPanelPx};
-        padding-right: ${styles.sizes.taskPanelPx};
-        height: 50px;
-        display: flex;
-        align-items: center;
-        h1{
-            font-size: 24px;
-            color: ${styles.colors.blue1};
-            font-weight: bold;
-        }
-    }
     .header{
         max-width: 400px;
         display: flex;

@@ -11,6 +11,8 @@ import StartNode from '../components/graph/StartNode';
 import EndNode from '../components/graph/EndNode';
 import TaskEdge from '../components/graph/TaskEdge';
 import CriticalEdge from '../components/graph/CriticalEdge';
+import axios from 'axios';
+import FictifNode from '../components/graph/FicitifNode';
 
 
 const useStore = create((set, get) => {
@@ -19,24 +21,22 @@ const useStore = create((set, get) => {
             edgeId: edge.id,
             name: edge.id,
             duration: edge.data.duration,
-            predecessor: ['A', 'B'],
+            predecessors: ['A', 'B'],
         }
     })
     return {
         nodeId: 0,
         nodes: initialNodes,
         edges: initialEdges,
-        tasks: [
-            // {
-            //     edgeId: 'Deb',
-            //     name: 'Deb',
-            //     duration: 0,
-            //     predecessor: [],
-            // },
-            ...initialTasks
-        ],
-        nodeTypes: { stepNode: StepNode, startNode: StartNode, endNode: EndNode },
+        tasks: [],
+        nodeTypes: { stepNode: StepNode, startNode: StartNode, endNode: EndNode, fictifNode: FictifNode },
         edgeTypes: { taskEdge: TaskEdge, criticalEdge: CriticalEdge },
+        isTasksEdited: false,
+        setIsTasksEdited: (state) => {
+            set({
+                isTasksEdited: state
+            })
+        },
         onNodesChange: (changes) => {
             set({
                 nodes: applyNodeChanges(changes, get().nodes)
@@ -84,6 +84,48 @@ const useStore = create((set, get) => {
                 tasks: get().tasks.filter(t => t.name != taskName)
             })
         },
+        calculateGraph:  () => {
+            return axios.post("http://localhost:8000/calculate", {
+                tasks: get().tasks
+            }).then(res => {
+                console.log(res.data);
+                set({
+                    edges: res.data.edges.map(edge=>{
+                        return {
+                            ...edge, sourceHandle: edge.data.name
+                        }
+
+                    }),
+                    nodes: res.data.nodes.map((node, i) => {
+                        return {
+                            id: node.name,
+                            data: {
+                                earliestDate: node.es,
+                                latestDates: node.list_lf
+                            },
+                            position: { x: 50 + i*200, y: 250 + 50*Math.pow(-1, i) },
+                            type: node.type
+                        }
+                    })
+                })
+            }).catch(err => {
+                console.log(err);
+            });
+        },
+        saveToLocalStorage: () => {
+            localStorage.setItem('tasks', JSON.stringify(get().tasks))
+        },
+        loadFromLocalStorage: () => {
+            const tasks = localStorage.getItem('tasks');
+            if(tasks){
+                set({
+                    tasks: JSON.parse(tasks)
+                });
+                return true;
+            } else{
+                return false;
+            }
+        }
     }
 })
 

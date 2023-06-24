@@ -26,7 +26,8 @@ import PreviousTaskName from './PreviousTaskName';
 const selector = (state) => ({
   existingTasks: state.tasks,
   addTask: state.addTask,
-
+  setIsTasksEdited: state.setIsTasksEdited,
+  saveToLocalStorage: state.saveToLocalStorage
 })
 
 
@@ -35,7 +36,7 @@ export default function AddTaskModal({ isOpen, setIsOpen }) {
   const [taskDuration, setTaskDuration] = useState(1);
   const [previousTasks, setPreviousTasks] = useState([]);
   const [selectValue, setSelectValue] = useState("");
-  const { existingTasks, addTask } = useStore(selector);
+  const { existingTasks, addTask, setIsTasksEdited, saveToLocalStorage } = useStore(selector);
   const [tasks, setTasks] = useState([
     {
       edgeId: 'Deb',
@@ -54,7 +55,7 @@ export default function AddTaskModal({ isOpen, setIsOpen }) {
     const newTask = {
       name: taskName,
       duration: taskDuration,
-      predecessor: previousTasks
+      predecessors: previousTasks
     }
     addTask(newTask);
     toast({
@@ -63,6 +64,8 @@ export default function AddTaskModal({ isOpen, setIsOpen }) {
     });
     setIsOpen(false);
     resetForm();
+    setIsTasksEdited(true);
+    saveToLocalStorage();
   }
 
   const resetForm = () => {
@@ -73,7 +76,7 @@ export default function AddTaskModal({ isOpen, setIsOpen }) {
       edgeId: 'Deb',
       name: 'Deb',
       duration: 0,
-      predecessor: [],
+      predecessors: [],
     },
     ...existingTasks])
   }

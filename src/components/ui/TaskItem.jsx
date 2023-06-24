@@ -16,7 +16,7 @@ import {
     Button
 } from '@chakra-ui/react'
 
-export default function TaskItem({ taskName, duration, previousTasks, marge }) {
+export default function TaskItem({ taskName, duration, previousTasks }) {
     return (
         <TaskItemWrapper>
             <div className="left">
@@ -36,9 +36,6 @@ export default function TaskItem({ taskName, duration, previousTasks, marge }) {
                         return <PreviousTaskName taskName={task} key={i} />
                     })
                 }
-            </div>
-            <div className="marge">
-                <strong>{marge} j</strong>
             </div>
             <Menu className="menu">
                 <MenuButton className="menuButton" as={Button} size='xs' fontSize={'md'} variant={'ghost'}>

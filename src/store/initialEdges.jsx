@@ -3,11 +3,11 @@ export default [
     {
         id: 'A',
         source: '1',
-        sourceHandle: '1-0',
+        sourceHandle: 'A',
         target: '2',
         type: 'taskEdge',
         data: {
-            taskName: 'A',
+            name: 'A',
             duration: 24,
             isFictif: false
         },
@@ -21,12 +21,12 @@ export default [
     {
         id: 'B',
         source: '2',
-        sourceHandle: '2-2',
+        sourceHandle: 'B',
         target: '3',
         label: "label",
         type: 'taskEdge',
         data: {
-            taskName: 'B',
+            name: 'B',
             duration: 9,
             isFictif: true
         },
@@ -34,13 +34,13 @@ export default [
     {
         id: 'C',
         source: '3',
-        sourceHandle: '3-1',
+        sourceHandle: 'C',
         target: 'end',
         label: "label",
         type: 'criticalEdge',
         animated: true,
         data: {
-            taskName: 'B',
+            name: 'B',
             duration: 9,
             isFictif: false
         },

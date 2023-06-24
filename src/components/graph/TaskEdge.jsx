@@ -19,7 +19,7 @@ export default function TaskEdge({
         sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition
     });
 
-    const {taskName, duration, isFictif} = data;
+    const {name, duration, isFictif} = data;
 
     return (
         <>
@@ -44,7 +44,7 @@ export default function TaskEdge({
                         border: isFictif ? `2px solid ${styles.colors.nodeStroke}` : 'none',
                         justifyContent: isFictif ? 'center' : 'space-between'
                     }}>
-                        {!isFictif && <span className="taskName">{taskName}</span>}
+                        {!isFictif && <span className="taskName">{name == 'Fin' ? "" : name}</span>}
                         <span className="taskDuration">{duration || 0}</span>
                     </div>
                 </EdgeLabelWrapper>
