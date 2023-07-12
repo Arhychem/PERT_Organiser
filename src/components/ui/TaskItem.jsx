@@ -17,6 +17,8 @@ import {
 } from '@chakra-ui/react';
 import useStore from "../../store/store";
 import { useToast } from '@chakra-ui/react';
+import EditTaskModal from "./EditTaskModal";
+import { useState } from "react";
 
 const selector = (state) => ({
     tasks: state.tasks,
@@ -24,6 +26,8 @@ const selector = (state) => ({
 })
 
 export default function TaskItem({ taskName, duration, previousTasks }) {
+    const [isEditTaskModalOpen, setIsEditTaskModalOpen] = useState(false);
+    const [taskToEdit, setTaskToEdit] = useState(null);
     const {tasks, removeTask} = useStore(selector);
     const toast = useToast();
     const handleTaskDelete = () => {
@@ -33,6 +37,10 @@ export default function TaskItem({ taskName, duration, previousTasks }) {
                 title: 'Tache supprimée !'
             })
         }
+    }
+    const handleEditModal = (taskToEdit) => {
+        setIsEditTaskModalOpen(true);
+        setTaskToEdit(taskToEdit);
     }
     return (
         <TaskItemWrapper>
@@ -59,10 +67,11 @@ export default function TaskItem({ taskName, duration, previousTasks }) {
                     <HiDotsVertical />
                 </MenuButton>
                 <MenuList className="menuList">
-                    <MenuItem>Modifier</MenuItem>
+                    <MenuItem onClick={()=> handleEditModal(taskName)}>Modifier</MenuItem>
                     <MenuItem color={'red'} onClick={handleTaskDelete}>Supprimer</MenuItem>
                 </MenuList>
             </Menu>
+            <EditTaskModal isOpen={isEditTaskModalOpen} setIsOpen={setIsEditTaskModalOpen} taskToEdit={taskToEdit} />
         </TaskItemWrapper>
     )
 }

@@ -79,6 +79,14 @@ const useStore = create((set, get) => {
             });
             
         },
+        editTask: (taskName, newTask) => {
+            let tasks = get().tasks;
+            let taskIndex = tasks.findIndex(t => t.name == taskName);
+            tasks[taskIndex] = newTask;
+            set({
+                tasks: [...tasks]
+            });
+        },
         removeTask: (taskName) => {
             //remove the task
             let filteredTasks = get().tasks.filter(t => t.name != taskName);
@@ -115,7 +123,7 @@ const useStore = create((set, get) => {
                                 earliestDate: node.es,
                                 latestDates: node.list_lf
                             },
-                            position: { x: 50 + i*200, y: 250 + 50*Math.pow(-1, i) },
+                            position: { x: 50 + i*100, y: 250 + 100*Math.pow(-1, i) },
                             type: node.type
                         }
                     })
