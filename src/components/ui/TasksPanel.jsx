@@ -61,6 +61,9 @@ const PanelWrapper = styled.div`
     height: 100%;
     box-shadow: -2px 0px 19px rgba(0, 0, 0, 0.09);
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+
     .header{
         max-width: 400px;
         display: flex;
@@ -70,6 +73,9 @@ const PanelWrapper = styled.div`
     .tasksSection{
         padding-left: ${styles.sizes.taskPanelPx};
         padding-right: ${styles.sizes.taskPanelPx};
+        padding-bottom: 40px;
         padding-top: 30px;
+        height: 100%;
+        overflow-y: auto;
     }
 `;
