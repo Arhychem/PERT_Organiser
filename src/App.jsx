@@ -6,6 +6,12 @@ import useStore from './store/store';
 import styled from '@emotion/styled';
 import TasksPanel from './components/ui/TasksPanel';
 import { ChakraProvider } from '@chakra-ui/react'
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
 
 
 const selector = (state) => ({
@@ -41,6 +47,15 @@ export default function App() {
             <Panel position='top-center'>
             </Panel>
           </ReactFlow>
+
+          {
+            nodes.length === 0 &&
+            (<Alert status='info' className='alert'>
+              <AlertIcon />
+              <AlertTitle>Pas encore de graphe à visualiser!</AlertTitle>
+              <AlertDescription>Creez des taches ensuite générez le</AlertDescription>
+            </Alert>)
+          }
         </div>
         <TasksPanel className="tasksPanel" />
       </AppWrapper>
@@ -56,5 +71,13 @@ const AppWrapper = styled.div`
     width: 100%;
     height: 100%;
     background-color: #F8FAFB;
+    position: relative;
+    .alert{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 800px;
+    }
   }
 `;

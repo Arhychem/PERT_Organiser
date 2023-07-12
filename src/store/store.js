@@ -26,8 +26,8 @@ const useStore = create((set, get) => {
     })
     return {
         nodeId: 0,
-        nodes: initialNodes,
-        edges: initialEdges,
+        nodes: [],
+        edges: [],
         tasks: [],
         nodeTypes: { stepNode: StepNode, startNode: StartNode, endNode: EndNode, fictifNode: FictifNode },
         edgeTypes: { taskEdge: TaskEdge, criticalEdge: CriticalEdge },
