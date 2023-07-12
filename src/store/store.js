@@ -102,7 +102,9 @@ const useStore = create((set, get) => {
                 set({
                     edges: res.data.edges.map(edge=>{
                         return {
-                            ...edge, sourceHandle: edge.data.name
+                            ...edge, 
+                            sourceHandle: edge.data.name,
+                            id: edge.source+"-"+edge.target
                         }
 
                     }),
