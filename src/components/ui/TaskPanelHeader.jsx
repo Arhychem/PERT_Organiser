@@ -5,6 +5,7 @@ import { GrGraphQl } from "react-icons/gr";
 import useStore from "../../store/store";
 import { shallow } from "zustand/shallow";
 import {HiOutlineSave} from "react-icons/hi"
+import { findCriticalPath } from "../../store/processing";
 
 const selector = (state) =>({
   isTasksEdited: state.isTasksEdited,
@@ -20,9 +21,11 @@ export default function TaskPanelHeader() {
     setIsTasksEdited(false);
     console.log(JSON.stringify(tasks));
     console.log(tasks);
-    calculateGraph().then(res => {
+    const path = findCriticalPath();
+    console.log("Path: ",path);
+   /*  calculateGraph().then(res => {
       console.log("vita");
-    })
+    }) */
   }
   return (
     <Wrapper>
