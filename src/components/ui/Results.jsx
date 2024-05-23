@@ -45,9 +45,8 @@ const Results = () => {
       </table>
       <div>Durée totale du projet:</div>
       <div>Le chemin critique est : 
-       {/*  {criticalPath.length!=0?criticalPath.map((task,index)=>{
-            {console.log(task);}
-            <div style={{color:"red"}}>{task} ⏩</div>
+        {/* {criticalPath.length!=0?criticalPath.map((task,index)=>{
+            JSON.stringify(<div style={{color:"red"}}>{task} ⏩</div>);
         }):""} */}
         {JSON.stringify(criticalPath)}
       </div>
