@@ -23,7 +23,8 @@ function addTaskToPERT(task, pert) {
     earliestStart: 0,
     latestStart: Number.MAX_SAFE_INTEGER,
     earliestFinish: task.duration,
-    latestFinish: Number.MAX_SAFE_INTEGER
+    latestFinish: Number.MAX_SAFE_INTEGER,
+    name:task.name
   };
 }
 

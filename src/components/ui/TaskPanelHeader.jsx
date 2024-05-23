@@ -25,7 +25,7 @@ export default function TaskPanelHeader() {
     calculateGraph,
     loadFromLocalStorage,
   } = useStore(selector);
-  const { finalTasks, setFinalTasks } = useGlobalContext();
+  const {setFinalTasks,setCriticalPath } = useGlobalContext();
   const handleGenerate = () => {
     setIsTasksEdited(false);
     console.log(JSON.stringify(tasks));
@@ -37,6 +37,7 @@ export default function TaskPanelHeader() {
     setFinalTasks(myTasks);
     const path = findCriticalPath(myTasks);
     console.log("Path: ", path);
+    setCriticalPath(path);
     /*  calculateGraph().then(res => {
       console.log("vita");
     }) */

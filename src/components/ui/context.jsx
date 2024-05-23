@@ -9,7 +9,8 @@ export const useGlobalContext = () => {
 const AppContext = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [sommets, setSommets] = useState(0);
-  const [finalTasks,setFinalTasks] = useState([]);
+  const [finalTasks, setFinalTasks] = useState([]);
+  const [criticalPath, setCriticalPath] = useState([]);
 
   const data = {
     isModalOpen,
@@ -17,7 +18,9 @@ const AppContext = ({ children }) => {
     sommets,
     setSommets,
     finalTasks,
-    setFinalTasks
+    setFinalTasks,
+    criticalPath,
+    setCriticalPath
   };
 
   const closeModal = () => {
