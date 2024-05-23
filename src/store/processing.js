@@ -82,7 +82,7 @@ function calculateLatestTimes(pert, endProjectTime) {
 }
 
 // Fonction pour construire le diagramme de PERT
-function createPERT(tasks) {
+export function createPERT(tasks) {
   const pert = {};
   tasks.forEach(task => addTaskToPERT(task, pert));
   updateSuccessors(pert); // Mettre à jour les successeurs
@@ -138,9 +138,9 @@ export function findCriticalPath(pert) {
   return criticalPath;
 }
  // Création du diagramme de PERT
-const pertDiagram = createPERT(tasks);
+/* const pertDiagram = createPERT(tasks);
 console.log("Pert diagram: ",pertDiagram);
 
 // Utilisation de la fonction findCriticalPath pour obtenir le chemin critique
 const criticalPath = findCriticalPath(pertDiagram);
-console.log('Chemin critique:', criticalPath); 
+console.log('Chemin critique:', criticalPath);  */

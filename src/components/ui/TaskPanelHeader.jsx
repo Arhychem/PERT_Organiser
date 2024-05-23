@@ -5,7 +5,8 @@ import { GrGraphQl } from "react-icons/gr";
 import useStore from "../../store/store";
 import { shallow } from "zustand/shallow";
 import {HiOutlineSave} from "react-icons/hi"
-import { findCriticalPath } from "../../store/processing";
+import { findCriticalPath, createPERT } from "../../store/processing";
+import { parseBadTasks } from "../../store/parser";
 
 const selector = (state) =>({
   isTasksEdited: state.isTasksEdited,
@@ -20,8 +21,12 @@ export default function TaskPanelHeader() {
   const handleGenerate = () => {
     setIsTasksEdited(false);
     console.log(JSON.stringify(tasks));
-    console.log(tasks);
-    const path = findCriticalPath();
+    console.log("Initial tasks",tasks);
+    const goodtasks = parseBadTasks(tasks);
+    console.log("formated tasks tasks",goodtasks);
+    const myTasks = createPERT(goodtasks);
+    console.log("pert network",myTasks);
+    const path = findCriticalPath(myTasks);
     console.log("Path: ",path);
    /*  calculateGraph().then(res => {
       console.log("vita");
