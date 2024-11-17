@@ -1,6 +1,6 @@
 # Installation de l'application
 
-### Pour installer l'application, placer vous sur le chemin principal (le dossier contenant le fichier package.json) et entrez la commande
-## ``` npm install ```
-### puis la commande
-## ```npm run dev ```
+#### Pour installer l'application exécuter dans un terminal la commande suivante pour installer les dépendances nécessaire 
+``` npm install ```
+#### Exécuter ensuite la commande suivante pour lancer l'application
+```npm run dev ```
